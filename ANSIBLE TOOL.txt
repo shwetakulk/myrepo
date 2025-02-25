@@ -1,0 +1,224 @@
+========================ANSIBLE=========================
+>configure 4 systems .....with ubuntu o.s 22.04 VERSION  .................>
+>take ssh connection from the controller node 
+>to install python on ubuntu ec2-instances 
+$sudo apt-get update
+$sudo apt install python2-minimal
+$sudo python2 --version
+$ls /usr/bin/python*
+$sudo update-alternatives --install /usr/bin/python python /usr/bin/python2 1
+$sudo update-alternatives --install /usr/bin/python python /usr/bin/python3 2
+$sudo update-alternatives --config python
+$python --version
+======================================================================== 
+............to install pip2.............
+PIP ...>it allows the necessary packeges to run  ,which are not present  python library 
+so only we use python2 pip for python2 package , python3 pip for python 3 
+================================================================================ 
+$sudo apt update
+$sudo apt install curl
+$curl -O https://bootstrap.pypa.io/pip/2.7/get-pip.py --output get-pip.py
+$sudo python2 get-pip.py
+
+++++++++++++++++++++++++++++++++++++++++++
+curl -----used to donwload the data fles from the server to developer machine 
++++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+............set password for all server machines .............
+$sudo passwd ubuntu
+new p/w :ubuntu
+retype p/w;ubuntu
+$sudo vim /etc/ssh/sshd_config
+(here search for password authentication line and type yes)
+$sudo service ssh restart
+.......................................................
+>>>controller side configurATION
+*INSTALL PYTHON2 + pip2  THERE ALSO 
+*generate key for ssh connection on conroller *
+$ssh-keygen
+$ssh-copy-id ubuntu@172.31.18.134 (private ip of server-1)
+$ssh-copy-id ubuntu@172.31.20.33 (private ip of server-2)
+$ssh-copy-id ubuntu@172.31.25.61(private ip of server-3)
+=============================OR=================
+COPY THE SSH KEY OF THE CONTROLLER TO NODE MACHINES ...(vi .ssh/authorized_keys)
+===========================================================================
+......................................................................
+install ansible in controller machine only ***
+--------------------------------------------------------
+$sudo apt-get install software-properties-common
+$sudo apt-add-repository ppa:ansible/ansible
+$sudo apt-get update
+$sudo apt-get install -y ansible
+$ansible --version
+...........................................
+write ip addresses of nodes (all 3 servers ) in inventory file
+private ip address of node-1 > 172.31.89.244  
+private ip address of node-2 > 172.31.81.136    
+
+$cd /etc/ansible
+$ls
+$sudo vim hosts
+(insert the private ip address of the 3 server machines on top lines)
++save and quit.
+$cd
+$ls -la(to list all the current files)
+$ansible all -a 'ls -la'
+.............................................
+to ping all the node machines 
+$ansible all -m ping 
+...........................
+to check the free space of all the machines
+$ansible all -i /etc/ansible/hosts -m command -a 'free'
+
+to create file in al the ansible nodes 
+$ansible all -i /etc/ansible/hosts -m command -a 'touch file1'
+.....................................................
+to install docker on all the ,managed nodes
+$ansible all -i /etc/ansible/hosts -m shell -a 'curl -fsSL https://get.docker.com -o get-docker.sh'
+
+$ansible all -i /etc/ansible/hosts -m shell -a 'sh get-docker.sh'
+.....................................................................
+to create new inventory file (set of server info)
+$sudo vim /etc/ansible/hosts
+$vim inventory-project1
+(insert mode....add the private ip address of node servers)
+save +exit
+$cat inventory-project1
+to check the free space
+$ansible all -i  inventory-project1 -m command -a 'free' 
+====================================================================
+to copy to all files from controller to nodes
+$ansible all -m shell -a 'ls -la > file1'
+:::::::::::::::::::::::::::::::::::::::::::::::::
+>to see the o/p in node server machines
+$ cat file1
+................................................................
+to crete user on all nodes
+$ansible all -m user -a 'name=bhavya password=redhat' -b
+............................................................
+to create user with all 7 fields enabled
+ $ansible all -m user -a 'name=harvik password=redhat uid=5001 comment="he is regular 
+user" home=/home/ubuntu/harvik shell=/bin/bash' -b
+(check the o/p by login to other nodes from controler)
+..........................................................................
+to install git on all managed nodes
+$ansible all -m apt -a 'name=git state=present' -b
+
+to un-install git on all managed nodes
+$ansible all -m apt -a 'name=git state=absent' -b
+
+to install apache tomcat by updating repository
+$ansible all -m apt -a 'name=tomcat9 state=present update_cache=yes' -b
+
+................................................................................
+***************ansible play books********************
+ 
+>Ansible Playbooks offer a repeatable, reusable, simple configuration management 
+and multi-machine deployment system .
+>If you need to execute a task with Ansible more than once, write a playbook and put 
+it under source control. 
+
+ one that is well suited to deploying complex applications. 
+.....................................................................................
+to create playbook
+****(cd-------we should be out of ansible ----/etc/ansible)
+$mkdir playbooks1
+$cd playbooks1
+$sudo vim playbooks1.yml
+---
+- name: Install Git and Clone Remote Repository
+  hosts: all
+  become: true
+  tasks:
+    - name: Install Git
+      apt:
+        name: git
+        state: present
+        update_cache: yes
+    - name: Clone Remote Git Repository
+      git:
+        repo: https://github.com/bhavya-moulya-creator/repo-1
+        dest: /home/ubuntu/myrepo
+*******To Check the syntax of the playbook**********
+
+$ansible-playbook playbooks1.yml --syntax-check
+
+.......................................................
+to run the playbook
+$ ansible-playbook playbooks1.yml -b
+..............................................................
+Ansible playbook that configures the Git user name and email:
+$cd ..       (one step down from previous folder ) =>/etc/ansible ..> folder git-config
+$mkdir git-config
+$cd git-config
+$vim git-config.yml
+$Vim git-config.yml
+---
+- name: Configure Git user name and email
+  hosts: all
+  become: true
+
+  tasks:
+    - name: Set Git user name
+      command: git config --global user.name "bhavya"
+
+    - name: Set Git user email
+      command: git config --global user.email "rangaswamybhavya1@gmail.com"
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+*******To Check the syntax of the playbook**********
+
+$ansible-playbook git-config.yml --syntax-check
+
+.......................................................
+to run the playbook
+$ ansible-playbook git-config.yml -b
+;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+
+to see the configuration on all node servers 
+$sudo git config --list
+user name :bhavya
+email i.d :rangaswamybhavya1@gmail.com
+.................................................................................
+to create user on all managed nodes & to coppy p/w file
+$mkdir playbook4
+$cd playbook4
+$vim playbook4.yml
+
+
+$vim playbook4.yml
+---
+- name: create user & copy passwd file
+  hosts: all
+  tasks:
+    - name: user creation
+      user:
+        name: moulya
+        password: redhat
+        uid: 5000
+        home: /home/moulya
+    - name: Copy password into users home dir
+      copy:
+        src: /etc/passwd
+        dest: /home/moulya
+*******To Check the syntax of the playbook**********
+
+$ansible-playbook playbook4.yml --syntax-check
+
+.......................................................
+to run the playbook
+$ ansible-playbook playbook4.yml -b
+..............................................................
+to see th eexexution at the node server
+$sudo su
+#vim /etc/passwd
+#cd /home/moulya
+#ls
+passwd .......................>data should be present
+
+
+
+
+
+
+
+
