@@ -19,20 +19,23 @@ const translations = {
     dashboard: 'Dashboard',
     profile: 'Profile',
     logout: 'Logout',
+    students: 'Students',
+    content: 'Content',
+    analytics: 'Analytics',
     
     // Home page
-    heroTitle: 'Master Karnataka State Board Syllabus',
-    heroSubtitle: 'Comprehensive online tutoring for 8th, 9th & 10th standards in English and Kannada medium',
+    heroTitle: 'Master KSEEB Syllabus with Expert Guidance',
+    heroSubtitle: 'Personal tuition classes for 8th, 9th & 10th standards following Karnataka State Board curriculum',
     getStarted: 'Get Started',
     learnMore: 'Learn More',
     
     // Features
-    expertTutors: 'Expert Tutors',
-    expertTutorsDesc: 'Learn from experienced teachers who understand Karnataka State Board curriculum',
-    interactiveLessons: 'Interactive Lessons',
-    interactiveLessonsDesc: 'Engaging video lessons with quizzes and assignments',
+    expertTutors: 'Expert Teaching',
+    expertTutorsDesc: 'Learn from experienced teacher following KSEEB official curriculum',
+    personalizedLearning: 'Personalized Learning',
+    personalizedLearningDesc: 'Customized teaching approach for each student',
     flexibleSchedule: 'Flexible Schedule',
-    flexibleScheduleDesc: 'Study at your own pace with 24/7 access to course materials',
+    flexibleScheduleDesc: 'Study at your convenient time with recorded sessions',
     
     // Subjects
     mathematics: 'Mathematics',
@@ -63,10 +66,34 @@ const translations = {
     confirmPassword: 'Confirm Password',
     fullName: 'Full Name',
     phoneNumber: 'Phone Number',
+    parentPhone: 'Parent Phone',
+    address: 'Address',
     standard: 'Standard',
     medium: 'Medium',
     englishMedium: 'English Medium',
     kannadaMedium: 'Kannada Medium',
+    
+    // Teacher Dashboard
+    addContent: 'Add Content',
+    manageStudents: 'Manage Students',
+    viewAnalytics: 'View Analytics',
+    uploadNotes: 'Upload Notes',
+    createAssignment: 'Create Assignment',
+    scheduleClass: 'Schedule Class',
+    
+    // Content Management
+    contentTitle: 'Content Title',
+    contentDescription: 'Content Description',
+    uploadFile: 'Upload File',
+    selectChapter: 'Select Chapter',
+    contentType: 'Content Type',
+    videoLesson: 'Video Lesson',
+    notes: 'Notes',
+    assignment: 'Assignment',
+    quiz: 'Quiz',
+    
+    // KSEEB Chapters
+    chapter: 'Chapter',
     
     // Pricing
     basicPlan: 'Basic Plan',
@@ -81,7 +108,6 @@ const translations = {
     instructor: 'Instructor',
     duration: 'Duration',
     lessons: 'Lessons',
-    students: 'Students',
     rating: 'Rating',
   },
   kn: {
@@ -94,20 +120,23 @@ const translations = {
     dashboard: 'ಡ್ಯಾಶ್‌ಬೋರ್ಡ್',
     profile: 'ಪ್ರೊಫೈಲ್',
     logout: 'ಲಾಗ್ ಔಟ್',
+    students: 'ವಿದ್ಯಾರ್ಥಿಗಳು',
+    content: 'ವಿಷಯ',
+    analytics: 'ವಿಶ್ಲೇಷಣೆ',
     
     // Home page
-    heroTitle: 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ಮಂಡಳಿ ಪಠ್ಯಕ್ರಮದಲ್ಲಿ ಪಾರಂಗತರಾಗಿ',
-    heroSubtitle: '೮ನೇ, ೯ನೇ ಮತ್ತು ೧೦ನೇ ತರಗತಿಗಳಿಗೆ ಇಂಗ್ಲಿಷ್ ಮತ್ತು ಕನ್ನಡ ಮಾಧ್ಯಮದಲ್ಲಿ ಸಂಪೂರ್ಣ ಆನ್‌ಲೈನ್ ಬೋಧನೆ',
+    heroTitle: 'KSEEB ಪಠ್ಯಕ್ರಮದಲ್ಲಿ ಪರಿಣತ ಮಾರ್ಗದರ್ಶನದೊಂದಿಗೆ ಪಾರಂಗತರಾಗಿ',
+    heroSubtitle: 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ಮಂಡಳಿ ಪಠ್ಯಕ್ರಮವನ್ನು ಅನುಸರಿಸಿ ೮ನೇ, ೯ನೇ ಮತ್ತು ೧೦ನೇ ತರಗತಿಗಳಿಗೆ ವೈಯಕ್ತಿಕ ಟ್ಯೂಷನ್ ತರಗತಿಗಳು',
     getStarted: 'ಪ್ರಾರಂಭಿಸಿ',
     learnMore: 'ಇನ್ನಷ್ಟು ತಿಳಿಯಿರಿ',
     
     // Features
-    expertTutors: 'ಪರಿಣತ ಶಿಕ್ಷಕರು',
-    expertTutorsDesc: 'ಕರ್ನಾಟಕ ರಾಜ್ಯ ಮಂಡಳಿ ಪಠ್ಯಕ್ರಮವನ್ನು ಅರ್ಥಮಾಡಿಕೊಂಡ ಅನುಭವಿ ಶಿಕ್ಷಕರಿಂದ ಕಲಿಯಿರಿ',
-    interactiveLessons: 'ಸಂವಾದಾತ್ಮಕ ಪಾಠಗಳು',
-    interactiveLessonsDesc: 'ಪ್ರಶ್ನೋತ್ತರ ಮತ್ತು ಕಾರ್ಯಗಳೊಂದಿಗೆ ಆಕರ್ಷಕ ವೀಡಿಯೊ ಪಾಠಗಳು',
+    expertTutors: 'ಪರಿಣತ ಬೋಧನೆ',
+    expertTutorsDesc: 'KSEEB ಅಧಿಕೃತ ಪಠ್ಯಕ್ರಮವನ್ನು ಅನುಸರಿಸುವ ಅನುಭವಿ ಶಿಕ್ಷಕರಿಂದ ಕಲಿಯಿರಿ',
+    personalizedLearning: 'ವೈಯಕ್ತಿಕ ಕಲಿಕೆ',
+    personalizedLearningDesc: 'ಪ್ರತಿ ವಿದ್ಯಾರ್ಥಿಗೆ ಕಸ್ಟಮೈಸ್ಡ್ ಬೋಧನಾ ವಿಧಾನ',
     flexibleSchedule: 'ಹೊಂದಿಕೊಳ್ಳುವ ವೇಳಾಪಟ್ಟಿ',
-    flexibleScheduleDesc: 'ಕೋರ್ಸ್ ವಸ್ತುಗಳಿಗೆ ೨೪/೭ ಪ್ರವೇಶದೊಂದಿಗೆ ನಿಮ್ಮ ಸ್ವಂತ ವೇಗದಲ್ಲಿ ಅಧ್ಯಯನ ಮಾಡಿ',
+    flexibleScheduleDesc: 'ರೆಕಾರ್ಡ್ ಮಾಡಿದ ಸೆಷನ್‌ಗಳೊಂದಿಗೆ ನಿಮ್ಮ ಅನುಕೂಲಕರ ಸಮಯದಲ್ಲಿ ಅಧ್ಯಯನ ಮಾಡಿ',
     
     // Subjects
     mathematics: 'ಗಣಿತ',
@@ -138,10 +167,34 @@ const translations = {
     confirmPassword: 'ಪಾಸ್‌ವರ್ಡ್ ದೃಢೀಕರಿಸಿ',
     fullName: 'ಪೂರ್ಣ ಹೆಸರು',
     phoneNumber: 'ಫೋನ್ ಸಂಖ್ಯೆ',
+    parentPhone: 'ಪೋಷಕರ ಫೋನ್',
+    address: 'ವಿಳಾಸ',
     standard: 'ತರಗತಿ',
     medium: 'ಮಾಧ್ಯಮ',
     englishMedium: 'ಇಂಗ್ಲಿಷ್ ಮಾಧ್ಯಮ',
     kannadaMedium: 'ಕನ್ನಡ ಮಾಧ್ಯಮ',
+    
+    // Teacher Dashboard
+    addContent: 'ವಿಷಯ ಸೇರಿಸಿ',
+    manageStudents: 'ವಿದ್ಯಾರ್ಥಿಗಳನ್ನು ನಿರ್ವಹಿಸಿ',
+    viewAnalytics: 'ವಿಶ್ಲೇಷಣೆ ನೋಡಿ',
+    uploadNotes: 'ಟಿಪ್ಪಣಿಗಳನ್ನು ಅಪ್‌ಲೋಡ್ ಮಾಡಿ',
+    createAssignment: 'ಕಾರ್ಯ ರಚಿಸಿ',
+    scheduleClass: 'ತರಗತಿ ನಿಗದಿಪಡಿಸಿ',
+    
+    // Content Management
+    contentTitle: 'ವಿಷಯದ ಶೀರ್ಷಿಕೆ',
+    contentDescription: 'ವಿಷಯದ ವಿವರಣೆ',
+    uploadFile: 'ಫೈಲ್ ಅಪ್‌ಲೋಡ್ ಮಾಡಿ',
+    selectChapter: 'ಅಧ್ಯಾಯ ಆಯ್ಕೆಮಾಡಿ',
+    contentType: 'ವಿಷಯದ ಪ್ರಕಾರ',
+    videoLesson: 'ವೀಡಿಯೊ ಪಾಠ',
+    notes: 'ಟಿಪ್ಪಣಿಗಳು',
+    assignment: 'ಕಾರ್ಯ',
+    quiz: 'ಪ್ರಶ್ನೋತ್ತರ',
+    
+    // KSEEB Chapters
+    chapter: 'ಅಧ್ಯಾಯ',
     
     // Pricing
     basicPlan: 'ಮೂಲಭೂತ ಯೋಜನೆ',
@@ -156,7 +209,6 @@ const translations = {
     instructor: 'ಬೋಧಕ',
     duration: 'ಅವಧಿ',
     lessons: 'ಪಾಠಗಳು',
-    students: 'ವಿದ್ಯಾರ್ಥಿಗಳು',
     rating: 'ರೇಟಿಂಗ್',
   }
 }

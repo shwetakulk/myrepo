@@ -1,6 +1,6 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
-import { BookOpen, Menu, X, Globe, User, LogOut } from 'lucide-react'
+import { BookOpen, Menu, X, Globe, User, LogOut, Users, FileText, BarChart3 } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -8,7 +8,7 @@ const Header: React.FC = () => {
   const [isMenuOpen, setIsMenuOpen] = useState(false)
   const [isUserMenuOpen, setIsUserMenuOpen] = useState(false)
   const { language, setLanguage, t } = useLanguage()
-  const { user, logout } = useAuth()
+  const { user, logout, isTeacher } = useAuth()
   const navigate = useNavigate()
 
   const handleLogout = () => {
@@ -37,9 +37,24 @@ const Header: React.FC = () => {
             <Link to="/courses" className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
               {t('courses')}
             </Link>
-            <Link to="/pricing" className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
-              {t('pricing')}
-            </Link>
+            {isTeacher && (
+              <>
+                <Link to="/students" className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
+                  {t('students')}
+                </Link>
+                <Link to="/content" className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
+                  {t('content')}
+                </Link>
+                <Link to="/analytics" className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
+                  {t('analytics')}
+                </Link>
+              </>
+            )}
+            {!isTeacher && (
+              <Link to="/pricing" className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
+                {t('pricing')}
+              </Link>
+            )}
           </nav>
 
           {/* Right side buttons */}
@@ -65,6 +80,11 @@ const Header: React.FC = () => {
                   <span className={`font-medium ${language === 'kn' ? 'font-kannada' : ''}`}>
                     {user.fullName}
                   </span>
+                  {isTeacher && (
+                    <span className="bg-primary-100 text-primary-800 text-xs px-2 py-1 rounded-full">
+                      Teacher
+                    </span>
+                  )}
                 </button>
                 
                 {isUserMenuOpen && (
@@ -138,13 +158,40 @@ const Header: React.FC = () => {
               >
                 {t('courses')}
               </Link>
-              <Link
-                to="/pricing"
-                className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}
-                onClick={() => setIsMenuOpen(false)}
-              >
-                {t('pricing')}
-              </Link>
+              {isTeacher && (
+                <>
+                  <Link
+                    to="/students"
+                    className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('students')}
+                  </Link>
+                  <Link
+                    to="/content"
+                    className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('content')}
+                  </Link>
+                  <Link
+                    to="/analytics"
+                    className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    {t('analytics')}
+                  </Link>
+                </>
+              )}
+              {!isTeacher && (
+                <Link
+                  to="/pricing"
+                  className={`text-gray-700 hover:text-primary-600 font-medium ${language === 'kn' ? 'font-kannada' : ''}`}
+                  onClick={() => setIsMenuOpen(false)}
+                >
+                  {t('pricing')}
+                </Link>
+              )}
               
               <div className="pt-4 border-t border-gray-200">
                 <button

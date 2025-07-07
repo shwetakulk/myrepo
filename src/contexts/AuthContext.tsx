@@ -7,9 +7,14 @@ interface User {
   standard: string
   medium: 'en' | 'kn'
   phoneNumber: string
+  parentPhone?: string
+  address?: string
+  role: 'student' | 'teacher'
+  enrolledCourses?: string[]
   subscription?: {
     plan: string
     expiresAt: string
+    paymentStatus: 'active' | 'pending' | 'expired'
   }
 }
 
@@ -19,6 +24,7 @@ interface AuthContextType {
   register: (userData: RegisterData) => Promise<void>
   logout: () => void
   isLoading: boolean
+  isTeacher: boolean
 }
 
 interface RegisterData {
@@ -28,6 +34,8 @@ interface RegisterData {
   standard: string
   medium: 'en' | 'kn'
   phoneNumber: string
+  parentPhone?: string
+  address?: string
 }
 
 const AuthContext = createContext<AuthContextType | undefined>(undefined)
@@ -51,17 +59,32 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       // Simulate API call
       await new Promise(resolve => setTimeout(resolve, 1000))
       
-      // Mock user data
-      const userData: User = {
-        id: '1',
+      // Check if teacher login
+      const isTeacherLogin = email === 'teacher@tuition.com'
+      
+      const userData: User = isTeacherLogin ? {
+        id: 'teacher-1',
+        email,
+        fullName: 'Rajesh Kumar Sir',
+        standard: 'All',
+        medium: 'en',
+        phoneNumber: '+91 9876543210',
+        role: 'teacher'
+      } : {
+        id: Date.now().toString(),
         email,
         fullName: 'Student Name',
         standard: '10',
         medium: 'en',
         phoneNumber: '+91 9876543210',
+        parentPhone: '+91 9876543211',
+        address: 'Bangalore, Karnataka',
+        role: 'student',
+        enrolledCourses: ['math-10', 'science-10'],
         subscription: {
           plan: 'premium',
-          expiresAt: '2024-12-31'
+          expiresAt: '2024-12-31',
+          paymentStatus: 'active'
         }
       }
       
@@ -82,7 +105,9 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
       
       const newUser: User = {
         id: Date.now().toString(),
-        ...userData
+        ...userData,
+        role: 'student',
+        enrolledCourses: []
       }
       
       setUser(newUser)
@@ -99,8 +124,10 @@ export const AuthProvider: React.FC<{ children: ReactNode }> = ({ children }) =>
     localStorage.removeItem('user')
   }
 
+  const isTeacher = user?.role === 'teacher'
+
   return (
-    <AuthContext.Provider value={{ user, login, register, logout, isLoading }}>
+    <AuthContext.Provider value={{ user, login, register, logout, isLoading, isTeacher }}>
       {children}
     </AuthContext.Provider>
   )

@@ -11,6 +11,9 @@ import Register from './pages/Register'
 import Dashboard from './pages/Dashboard'
 import Pricing from './pages/Pricing'
 import Profile from './pages/Profile'
+import Students from './pages/Students'
+import ContentManagement from './pages/ContentManagement'
+import Analytics from './pages/Analytics'
 
 function App() {
   return (
@@ -28,6 +31,9 @@ function App() {
               <Route path="/dashboard" element={<Dashboard />} />
               <Route path="/pricing" element={<Pricing />} />
               <Route path="/profile" element={<Profile />} />
+              <Route path="/students" element={<Students />} />
+              <Route path="/content" element={<ContentManagement />} />
+              <Route path="/analytics" element={<Analytics />} />
             </Routes>
           </div>
         </AuthProvider>

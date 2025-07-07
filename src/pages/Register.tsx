@@ -1,7 +1,7 @@
 import React, { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { motion } from 'framer-motion'
-import { BookOpen, Mail, Lock, User, Phone, GraduationCap, Globe } from 'lucide-react'
+import { BookOpen, Mail, Lock, User, Phone, GraduationCap, Globe, MapPin } from 'lucide-react'
 import { useLanguage } from '../contexts/LanguageContext'
 import { useAuth } from '../contexts/AuthContext'
 
@@ -12,6 +12,8 @@ const Register: React.FC = () => {
     password: '',
     confirmPassword: '',
     phoneNumber: '',
+    parentPhone: '',
+    address: '',
     standard: '',
     medium: 'en' as 'en' | 'kn'
   })
@@ -20,7 +22,7 @@ const Register: React.FC = () => {
   const { register, isLoading } = useAuth()
   const navigate = useNavigate()
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLSelectElement | HTMLTextAreaElement>) => {
     setFormData({
       ...formData,
       [e.target.name]: e.target.value
@@ -60,7 +62,7 @@ const Register: React.FC = () => {
           transition={{ delay: 0.1 }}
           className={`mt-6 text-center text-3xl font-extrabold text-gray-900 ${language === 'kn' ? 'font-kannada' : ''}`}
         >
-          {language === 'kn' ? 'ನಿಮ್ಮ ಖಾತೆ ರಚಿಸಿ' : 'Create your account'}
+          {language === 'kn' ? 'ಟ್ಯೂಷನ್ ತರಗತಿಗಳಿಗೆ ನೋಂದಣಿ' : 'Register for Tuition Classes'}
         </motion.h2>
         <motion.p
           initial={{ opacity: 0, y: -20 }}
@@ -105,7 +107,7 @@ const Register: React.FC = () => {
                   value={formData.fullName}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder={language === 'kn' ? 'ನಿಮ್ಮ ಪೂರ್ಣ ಹೆಸರು' : 'Enter your full name'}
+                  placeholder={language === 'kn' ? 'ವಿದ್ಯಾರ್ಥಿಯ ಪೂರ್ಣ ಹೆಸರು' : 'Student full name'}
                 />
                 <User className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
@@ -125,28 +127,68 @@ const Register: React.FC = () => {
                   value={formData.email}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder={language === 'kn' ? 'ನಿಮ್ಮ ಇಮೇಲ್ ವಿಳಾಸ' : 'Enter your email'}
+                  placeholder={language === 'kn' ? 'ಇಮೇಲ್ ವಿಳಾಸ' : 'Email address'}
                 />
                 <Mail className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
             </div>
 
+            <div className="grid grid-cols-2 gap-4">
+              <div>
+                <label htmlFor="phoneNumber" className={`block text-sm font-medium text-gray-700 ${language === 'kn' ? 'font-kannada' : ''}`}>
+                  {t('phoneNumber')}
+                </label>
+                <div className="mt-1 relative">
+                  <input
+                    id="phoneNumber"
+                    name="phoneNumber"
+                    type="tel"
+                    required
+                    value={formData.phoneNumber}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    placeholder={language === 'kn' ? 'ವಿದ್ಯಾರ್ಥಿ ಫೋನ್' : 'Student phone'}
+                  />
+                  <Phone className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                </div>
+              </div>
+
+              <div>
+                <label htmlFor="parentPhone" className={`block text-sm font-medium text-gray-700 ${language === 'kn' ? 'font-kannada' : ''}`}>
+                  {t('parentPhone')}
+                </label>
+                <div className="mt-1 relative">
+                  <input
+                    id="parentPhone"
+                    name="parentPhone"
+                    type="tel"
+                    required
+                    value={formData.parentPhone}
+                    onChange={handleChange}
+                    className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
+                    placeholder={language === 'kn' ? 'ಪೋಷಕರ ಫೋನ್' : 'Parent phone'}
+                  />
+                  <Phone className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                </div>
+              </div>
+            </div>
+
             <div>
-              <label htmlFor="phoneNumber" className={`block text-sm font-medium text-gray-700 ${language === 'kn' ? 'font-kannada' : ''}`}>
-                {t('phoneNumber')}
+              <label htmlFor="address" className={`block text-sm font-medium text-gray-700 ${language === 'kn' ? 'font-kannada' : ''}`}>
+                {t('address')}
               </label>
               <div className="mt-1 relative">
-                <input
-                  id="phoneNumber"
-                  name="phoneNumber"
-                  type="tel"
+                <textarea
+                  id="address"
+                  name="address"
+                  rows={3}
                   required
-                  value={formData.phoneNumber}
+                  value={formData.address}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder={language === 'kn' ? 'ನಿಮ್ಮ ಫೋನ್ ಸಂಖ್ಯೆ' : 'Enter your phone number'}
+                  placeholder={language === 'kn' ? 'ಪೂರ್ಣ ವಿಳಾಸ' : 'Complete address'}
                 />
-                <Phone className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
+                <MapPin className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
             </div>
 
@@ -208,7 +250,7 @@ const Register: React.FC = () => {
                   value={formData.password}
                   onChange={handleChange}
                   className="appearance-none block w-full px-3 py-2 pl-10 border border-gray-300 rounded-md placeholder-gray-400 focus:outline-none focus:ring-primary-500 focus:border-primary-500"
-                  placeholder={language === 'kn' ? 'ನಿಮ್ಮ ಪಾಸ್‌ವರ್ಡ್' : 'Create a password'}
+                  placeholder={language === 'kn' ? 'ಪಾಸ್‌ವರ್ಡ್ ರಚಿಸಿ' : 'Create a password'}
                 />
                 <Lock className="h-5 w-5 text-gray-400 absolute left-3 top-2.5" />
               </div>
@@ -243,14 +285,36 @@ const Register: React.FC = () => {
                 {isLoading ? (
                   <div className="flex items-center space-x-2">
                     <div className="animate-spin rounded-full h-4 w-4 border-b-2 border-white"></div>
-                    <span>{language === 'kn' ? 'ನೋಂದಣಿ ಆಗುತ್ತಿದೆ...' : 'Creating account...'}</span>
+                    <span>{language === 'kn' ? 'ನೋಂದಣಿ ಆಗುತ್ತಿದೆ...' : 'Registering...'}</span>
                   </div>
                 ) : (
-                  t('register')
+                  language === 'kn' ? 'ಟ್ಯೂಷನ್‌ಗೆ ನೋಂದಣಿ' : 'Register for Tuition'
                 )}
               </button>
             </div>
           </form>
+
+          <div className="mt-6">
+            <div className="relative">
+              <div className="absolute inset-0 flex items-center">
+                <div className="w-full border-t border-gray-300" />
+              </div>
+              <div className="relative flex justify-center text-sm">
+                <span className={`px-2 bg-white text-gray-500 ${language === 'kn' ? 'font-kannada' : ''}`}>
+                  {language === 'kn' ? 'ಅಥವಾ' : 'Or'}
+                </span>
+              </div>
+            </div>
+
+            <div className="mt-6 text-center">
+              <p className={`text-sm text-gray-600 ${language === 'kn' ? 'font-kannada' : ''}`}>
+                {language === 'kn' 
+                  ? 'ಶಿಕ್ಷಕರಾಗಿದ್ದರೆ? teacher@tuition.com ಬಳಸಿ ಲಾಗಿನ್ ಮಾಡಿ'
+                  : 'Are you a teacher? Use teacher@tuition.com to login'
+                }
+              </p>
+            </div>
+          </div>
         </motion.div>
       </div>
     </div>
